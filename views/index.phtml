@@ -2,11 +2,11 @@
 <html>
 <head lang="en">
   <meta charset="UTF-8">
-  <title><?= $_->html($title) ?></title>
+  <title><?= htmlentities($title) ?></title>
 </head>
 <body>
-  Test: <?= $_->html($body) ?>
+  Test: <?= htmlentities($body) ?>
   <br>
-  <input type="text" value=<?= $_->attr($attr); ?>>
+  <input type="text" value="<?= htmlentities($attr); ?>">
 </body>
 </html>
