@@ -1,7 +1,7 @@
 <?php
-include("fifty.php");
+include("fifty.php"); use function Fifty\_;
+
 include("models/Post.php");
-use function Fifty\_;
 
 echo _("views/page.phtml")->render([
   "title" => "A Blog",
