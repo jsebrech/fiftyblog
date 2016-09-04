@@ -8,15 +8,16 @@ function _($for = null) {
 
 class Fifty {
   private $for = null;
-  public function __construct($for) {
-    $this->for = $for;
-  }
 
-  public function render($template) {
+  public function __construct($for) { $this->for = $for; }
+
+  public function __invoke($for) { return _($for); }
+
+  public function render($data) {
     ob_start();
-    extract((array) $this->for);
+    extract((array) $data);
     $_ = $this;
-    include $template;
+    include $this->for;
     return ob_get_clean();
   }
 
