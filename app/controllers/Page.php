@@ -6,9 +6,9 @@ include("models/Post.php");
 class Page {
   private static function posts($posts) {
     return _("views/page.phtml")->render([
-      "title" => "A Blog",
+      "title" => Setting::get("title"),
       "body" => _("views/posts.phtml")->render([
-        "title" => "A Blog",
+        "title" => Setting::get("title"),
         "posts" => $posts
       ])
     ]);
