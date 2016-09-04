@@ -1,5 +1,5 @@
 <h3 class="well">
-  <?= $post->title ?>
+  <a href="/post/<?= $post->created ?>"><?= $post->title ?></a>
   <small><?= strftime("%A, %#d %B %Y %H:%M", $post->created) ?></small>
 </h3>
 <div>

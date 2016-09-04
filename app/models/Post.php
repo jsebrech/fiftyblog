@@ -13,7 +13,9 @@ class Post {
   }
 
   static function get($from, $count = 1) {
-
+    return array_slice(array_filter(Post::all(), function($post) use ($from) {
+      return !$from || ($post->created <= (int) $from);
+    }), 0, $count);
   }
 
   static function all() {
@@ -21,7 +23,7 @@ class Post {
 
     $posts[] = new Post(
       "Worth A Thousand Words",
-      mktime(12),
+      mktime(12, 0, 0, 1, 1, 2016),
       <<<EOT
         <figure class="figure" style="width: 435px" class="figure">
           <img alt="Boat" class="figure-img img-fluid img-rounded" src="https://wpdotorg.files.wordpress.com/2008/11/boat.jpg" width="435" height="288" />
@@ -32,7 +34,7 @@ EOT
 
     $posts[] = new Post(
       "Elements",
-      mktime(11),
+      mktime(11, 0, 0, 1, 1, 2016),
       <<<EOT
 <p>The purpose of this HTML is to help determine what default settings are with CSS and to make sure that all possible HTML Elements are included in this HTML so as to not miss any possible Elements when designing a site.</p>
 <hr />
@@ -161,7 +163,7 @@ EOT
     );
 
     for ($i = 10; $i >= 1; $i--) {
-      $posts[] = new Post("Post " . $i, mktime($i), "Blah");
+      $posts[] = new Post("Post " . $i, mktime($i, 0, 0, 1, 1, 2016), "Blah");
     }
     return $posts;
   }

@@ -21,7 +21,15 @@ class Fifty {
     return ob_get_clean();
   }
 
-  public static function json($str) {
-    return json_encode($str, JSON_HEX_TAG | JSON_HEX_AMP);
+  // based on http://upshots.org/php/php-seriously-simple-router
+  public function route($routes) {
+    foreach ($routes as $pattern => $callback) {
+      if (preg_match('/^'.str_replace('/','\/',$pattern).'$/', $this->for, $params) === 1) {
+        array_shift($params);
+        echo call_user_func_array($callback, array_values($params));
+      }
+    }
+    // TODO: 404 handler
+    return false;
   }
 }
