@@ -1,5 +1,6 @@
 <?php
 
 $settings = [
-  "title" => "A Blog"
+  "title" => "A Blog",
+  "users" => ["js" => "pass"]
 ];

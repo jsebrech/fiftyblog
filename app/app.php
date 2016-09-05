@@ -6,5 +6,6 @@ include "controllers/Page.php";
 
 _($_SERVER["REQUEST_URI"])->route([
   "/" => "Page::index",
+  "/logout" => function() { _()->logout(); },
   "/post/(.+)" => "Page::post"
 ]);
