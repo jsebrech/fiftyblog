@@ -4,35 +4,22 @@ namespace Fifty;
 
 session_start();
 
-function _($for = null) {
-  return new Fifty($for);
-}
-
-class Fifty {
-  private $for = null;
-
-  public function __construct($for) { $this->for = $for; }
-
-  public function __invoke($for) { return _($for); }
-
-  public function render($data) {
+class _ {
+  public static function render($template, $data) {
     ob_start();
     extract((array) $data);
-    $_ = $this;
-    include $this->for;
+    include $template;
     return ob_get_clean();
   }
 
   // based on http://upshots.org/php/php-seriously-simple-router
-  public function route($routes) {
+  public static function route($path, $routes) {
     foreach ($routes as $pattern => $callback) {
-      if (preg_match('/^'.str_replace('/','\/',$pattern).'$/', $this->for, $params) === 1) {
-        array_shift($params);
-        echo call_user_func_array($callback, array_values($params));
+      if (preg_match('/^'.str_replace('/','\/',$pattern).'$/', $path, $params) === 1) {
+        return call_user_func_array($callback, array_slice($params, 1));
       }
     }
-    // TODO: 404 handler
-    return false;
+    return isset($routes[404]) ? $routes[404]() : false;
   }
 
   public static function login($users, $message = null) {

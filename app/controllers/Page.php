@@ -1,13 +1,13 @@
 <?php
-use function Fifty\_;
+use Fifty\_;
 
 include("models/Post.php");
 
 class Page {
   private static function posts($posts) {
-    return _("views/page.phtml")->render([
+    return _::render("views/page.phtml", [
       "title" => Setting::get("title"),
-      "body" => _("views/posts.phtml")->render([
+      "body" => _::render("views/posts.phtml", [
         "title" => Setting::get("title"),
         "posts" => $posts
       ])
@@ -19,7 +19,7 @@ class Page {
   }
 
   static function post($created) {
-    _()->login(Setting::get("users"));
+    _::login(Setting::get("users"));
     return self::posts(Post::get($created));
   }
 
