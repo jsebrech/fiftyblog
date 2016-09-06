@@ -5,6 +5,8 @@ namespace Fifty;
 session_start();
 
 class _ {
+  public static $auth = null;
+
   public static function render($template, $data) {
     ob_start();
     extract((array) $data);
@@ -22,30 +24,20 @@ class _ {
     return isset($routes[404]) ? $routes[404]() : false;
   }
 
-  public static function login($users, $message = null) {
-    if (!self::loggedin($users)) {
-      if (!isset($_SERVER["PHP_AUTH_USER"]) || !isset($users[$_SERVER["PHP_AUTH_USER"]]) ||
-        $users[$_SERVER["PHP_AUTH_USER"]] != $_SERVER["PHP_AUTH_PW"]) {
-        header('WWW-Authenticate: Basic realm="fifty"');
-        header('HTTP/1.0 401 Unauthorized');
-        echo $message ?: "Unauthorized";
-        exit;
-      }
-      $_SESSION["user"] = $_SERVER["PHP_AUTH_USER"];
+  public static function login() {
+    if (!self::loggedin() && isset(self::$auth)) {
+      $_SESSION["user"] = self::$auth->login();
     };
     return self::loggedin();
   }
 
-  public static function loggedin($users = null) {
-    if (isset($_SESSION["user"])) {
-      if (isset($users) && !in_array($_SESSION["user"], array_keys($users))) return false;
-      return $_SESSION["user"];
-    } else return false;
+  public static function loggedin() {
+    return isset($_SESSION["user"]) ? $_SESSION["user"] : false;
   }
 
-  public static function logout($url = "/") {
+  public static function logout() {
     $_SESSION = array();
     session_regenerate_id(true);
-    header("Location: $url");
+    if (isset(self::$auth)) self::$auth->logout();
   }
 }

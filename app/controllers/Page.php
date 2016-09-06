@@ -19,8 +19,7 @@ class Page {
   }
 
   static function post($created) {
-    _::login(Setting::get("users"));
-    return self::posts(Post::get($created));
+    return _::login() ? self::posts(Post::get($created)) : "Unauthorized";
   }
 
 }
