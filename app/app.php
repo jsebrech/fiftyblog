@@ -11,5 +11,5 @@ echo _::route($_SERVER["REQUEST_URI"], [
   "/" => "Page::index",
   "/logout" => function() { _::logout(); },
   "/post/(.+)" => "Page::post",
-  404 => "Page::notFound"
+  ".*" => "Page::notFound"
 ]);

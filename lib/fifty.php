@@ -21,7 +21,7 @@ class _ {
         return call_user_func_array($callback, array_slice($params, 1));
       }
     }
-    return isset($routes[404]) ? call_user_func($routes[404]) : false;
+    return false;
   }
 
   public static function login() {

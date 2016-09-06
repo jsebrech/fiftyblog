@@ -4,14 +4,6 @@ use Fifty\_;
 include("models/Post.php");
 
 class Page {
-  private static function posts($posts) {
-    return _::render("views/page.phtml", [
-      "title" => Setting::get("title"),
-      "body" => _::render("views/posts.phtml", [
-        "posts" => $posts
-      ])
-    ]);
-  }
 
   static function index() {
     if (isset($_GET["login"])) _::login();
@@ -29,6 +21,15 @@ class Page {
       "body" =>
         _::render("views/navbar.phtml") .
         '<div class="container"><p>Oops, seems you backed into a corner there.</p></div>'
+    ]);
+  }
+
+  private static function posts($posts) {
+    return _::render("views/page.phtml", [
+      "title" => Setting::get("title"),
+      "body" => _::render("views/posts.phtml", [
+        "posts" => $posts
+      ])
     ]);
   }
 
