@@ -23,4 +23,14 @@ class Page {
     return self::posts(Post::get($created));
   }
 
+  static function notFound() {
+    header("HTTP/1.0 404 Not Found");
+    return _::render("views/page.phtml", [
+      "title" => "404",
+      "body" =>
+        _::render("views/navbar.phtml") .
+        '<div class="container"><p>Oops, seems you backed into a corner there.</p></div>'
+    ]);
+  }
+
 }

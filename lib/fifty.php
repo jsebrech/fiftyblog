@@ -7,7 +7,7 @@ session_start();
 class _ {
   public static $auth = null;
 
-  public static function render($template, $data) {
+  public static function render($template, $data = array()) {
     ob_start();
     extract((array) $data);
     include $template;
@@ -21,11 +21,11 @@ class _ {
         return call_user_func_array($callback, array_slice($params, 1));
       }
     }
-    return isset($routes[404]) ? $routes[404]() : false;
+    return isset($routes[404]) ? call_user_func($routes[404]) : false;
   }
 
   public static function login() {
-    if (!self::loggedin() && isset(self::$auth)) {
+    if (!self::loggedin() && self::$auth) {
       $_SESSION["user"] = self::$auth->login();
     };
     return self::loggedin();
@@ -38,6 +38,6 @@ class _ {
   public static function logout() {
     $_SESSION = array();
     session_regenerate_id(true);
-    if (isset(self::$auth)) self::$auth->logout();
+    if (self::$auth) self::$auth->logout();
   }
 }

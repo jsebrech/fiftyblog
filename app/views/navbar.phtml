@@ -1,0 +1,15 @@
+<?php use Fifty\_; ?>
+<nav class="navbar navbar-inverse navbar-static-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/"><?= htmlentities(Setting::get("title")) ?></a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+      <?php if (_::loggedin()) { ?>
+        <li><a href="//logout@<?= $_SERVER["SERVER_NAME"] ?>/logout">Logout <?= htmlentities(_::loggedin()) ?></a></li>
+      <?php } else { ?>
+        <li><a href="/?login=1">Login</a></li>
+      <?php } ?>
+    </ul>
+  </div>
+</nav>
