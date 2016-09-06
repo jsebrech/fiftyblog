@@ -8,7 +8,6 @@ class Page {
     return _::render("views/page.phtml", [
       "title" => Setting::get("title"),
       "body" => _::render("views/posts.phtml", [
-        "title" => Setting::get("title"),
         "posts" => $posts
       ])
     ]);
