@@ -15,11 +15,12 @@ class Page {
   }
 
   static function index() {
+    if (isset($_GET["login"])) _::login();
     return self::posts(Post::get(false, 5));
   }
 
   static function post($created) {
-    return _::login() ? self::posts(Post::get($created)) : "Unauthorized";
+    return self::posts(Post::get($created));
   }
 
 }

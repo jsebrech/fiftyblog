@@ -17,7 +17,7 @@ class _ {
   // based on http://upshots.org/php/php-seriously-simple-router
   public static function route($path, $routes) {
     foreach ($routes as $pattern => $callback) {
-      if (preg_match('/^'.str_replace('/','\/',$pattern).'$/', $path, $params) === 1) {
+      if (preg_match('/^'.str_replace('/','\/',$pattern).'$/', strtok($path, "?"), $params) === 1) {
         return call_user_func_array($callback, array_slice($params, 1));
       }
     }
