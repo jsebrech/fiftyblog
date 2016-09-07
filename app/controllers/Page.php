@@ -25,15 +25,15 @@ class Page {
   }
 
   private static function posts($posts) {
-    $older = (end($posts)->created-1);
+    $older = Post::get(end($posts)->created-1);
     return _::render("views/page.phtml", [
       "title" => Setting::get("title"),
       "body" => array_reduce($posts,
         function($str, $post) {
           return $str._::render("views/post.phtml", ["post" => $post]);
         }
-      ).(((count($posts) == 5) && Post::get($older)) ?
-          '<br><p><a href="/?from='.$older.'">Older</a></p>' : "")
+      ).(((count($posts) > 1) && count($older)) ?
+          '<br><p><a href="/?from='.$older[0]->created.'">Older</a></p>' : "")
     ]);
   }
 
