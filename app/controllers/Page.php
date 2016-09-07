@@ -32,7 +32,7 @@ class Page {
         function($str, $post) {
           return $str._::render("views/post.phtml", ["post" => $post]);
         }
-      ).(((count($posts) == 5) && Post::get($older, 1)) ?
+      ).(((count($posts) == 5) && Post::get($older)) ?
           '<br><p><a href="/?from='.$older.'">Older</a></p>' : "")
     ]);
   }
