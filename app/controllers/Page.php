@@ -18,18 +18,17 @@ class Page {
     header("HTTP/1.0 404 Not Found");
     return _::render("views/page.phtml", [
       "title" => "404",
-      "body" =>
-        _::render("views/navbar.phtml") .
-        '<div class="container"><p>Oops, seems you backed into a corner there.</p></div>'
+      "body" => 'Oops, seems you backed into a corner there.'
     ]);
   }
 
   private static function posts($posts) {
     return _::render("views/page.phtml", [
       "title" => Setting::get("title"),
-      "body" => _::render("views/posts.phtml", [
-        "posts" => $posts
-      ])
+      "body" => array_reduce($posts,
+        function($str, $post) {
+          return $str._::render("views/post.phtml", ["post" => $post]); }
+      )
     ]);
   }
 

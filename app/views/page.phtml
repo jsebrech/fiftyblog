@@ -1,3 +1,4 @@
+<?php use Fifty\_; ?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -8,7 +9,23 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 </head>
 <body>
-<?= $body ?>
-<br>
+  <nav class="navbar navbar-inverse navbar-static-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/"><?= htmlentities($title) ?></a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <?php if (_::loggedin()) { ?>
+          <li><a href="//logout@<?= $_SERVER["SERVER_NAME"] ?>/logout">Logout <?= htmlentities(_::loggedin()) ?></a></li>
+        <?php } else { ?>
+          <li><a href="/?login=1">Login</a></li>
+        <?php } ?>
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <?= $body ?>
+  </div>
+  <br>
 </body>
 </html>
