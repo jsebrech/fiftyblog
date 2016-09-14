@@ -2,6 +2,7 @@
 chdir(__DIR__); include("../lib/fifty.php"); use Fifty\_;
 
 include "models/Setting.php";
+include "models/DB.php";
 include "controllers/Page.php";
 include "controllers/AuthPlugin.php";
 

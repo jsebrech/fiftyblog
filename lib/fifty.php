@@ -40,4 +40,33 @@ class _ {
     session_regenerate_id(true);
     if (self::$auth) self::$auth->logout();
   }
+
+  public static function cast($that, $as) {
+    $result = new $as();
+    $that = (array) $that;
+    foreach ((new \ReflectionClass($result))->getProperties() as $prop) {
+      $name = $prop->getName();
+      if (isset($that[$name])) {
+        $val = $that[$name];
+        if (preg_match('/@var[\\s]+([\\S]+)/', $prop->getDocComment(), $matches)) {
+          if (class_exists($matches[1])) {
+            $val = self::cast($that[$name], $matches[1]);
+          } else {
+            settype($val, $matches[1]);
+          }
+        };
+        $prop->setValue($result, $val);
+      }
+    };
+    return $result;
+  }
+
+  public static function query(\PDO $pdo, $sql, $bind = array()) {
+    $stmt = $pdo->prepare($sql);
+    return $stmt->execute($bind) ? $stmt : false;
+  }
+
+  public static function map($that, $with) {
+    return array_map($with, $that, array_keys($that));
+  }
 }
