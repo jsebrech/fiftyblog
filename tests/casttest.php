@@ -52,4 +52,9 @@
   $v = _::cast(2, "invalid");
   assert('$v === null');
 
+  $d = _::cast("2016-02-04T12:00:00+02:00", "DateTime");
+  assert('$d instanceof DateTime');
+  assert('$d->getOffset() === 7200');
+  assert('$d->format("Y-m-d H:i:s") === "2016-02-04 12:00:00"');
+
   echo "ok";
