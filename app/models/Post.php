@@ -15,7 +15,7 @@ class Post {
       _::query(
         DB::get(),
         "select id as created, title, body from posts where id <= ? order by id desc limit ?",
-        array($from, $count)
+        [$from, $count]
       )->fetchAll(),
       function($row) {
         return _::cast($row, "Post");

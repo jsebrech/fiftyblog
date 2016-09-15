@@ -52,17 +52,16 @@ class _ {
 
   // TODO: validate method
 
-  public static function query(\PDO $pdo, $sql, $bind = array()) {
+  public static function query(\PDO $pdo, $sql, $bind = []) {
     $stmt = $pdo->prepare($sql);
     return $stmt->execute($bind) ? $stmt : false;
   }
 
-  // TODO: keep or toss?
   public static function map($that, $with) {
     return array_map($with, $that, array_keys($that));
   }
 
-  public static function render($template, $data = array()) {
+  public static function render($template, $data = []) {
     ob_start();
     extract((array) $data);
     include $template;

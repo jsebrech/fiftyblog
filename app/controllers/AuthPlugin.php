@@ -1,7 +1,7 @@
 <?php
 
 class AuthPlugin {
-  private $users = array();
+  private $users = [];
 
   function __construct($users) {
     $this->users = $users;
