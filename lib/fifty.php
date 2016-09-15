@@ -7,13 +7,6 @@ session_start();
 class _ {
   public static $auth = null;
 
-  public static function render($template, $data = array()) {
-    ob_start();
-    extract((array) $data);
-    include $template;
-    return ob_get_clean();
-  }
-
   // based on http://upshots.org/php/php-seriously-simple-router
   public static function route($path, $routes) {
     foreach ($routes as $pattern => $callback) {
@@ -24,21 +17,17 @@ class _ {
     return false;
   }
 
-  public static function login() {
-    if (!self::loggedin() && self::$auth) {
-      $_SESSION["user"] = self::$auth->login();
-    };
-    return self::loggedin();
-  }
-
-  public static function loggedin() {
-    return isset($_SESSION["user"]) ? $_SESSION["user"] : false;
-  }
-
-  public static function logout() {
-    $_SESSION = array();
-    session_regenerate_id(true);
-    if (self::$auth) self::$auth->logout();
+  public static function authenticate($a = null) {
+    if ($a === false) { // logout
+      $_SESSION = [];
+      session_regenerate_id(true);
+      if (self::$auth) self::$auth->logout();
+    } else if (isset($_SESSION["user"])) { // logged in
+      return $_SESSION["user"];
+    } else if ($a && self::$auth) { // login
+      return $_SESSION["user"] = self::$auth->login($a);
+    }
+    return false;
   }
 
   public static function cast($that, $as) {
@@ -61,12 +50,23 @@ class _ {
     return $result;
   }
 
+  // TODO: validate method
+
   public static function query(\PDO $pdo, $sql, $bind = array()) {
     $stmt = $pdo->prepare($sql);
     return $stmt->execute($bind) ? $stmt : false;
   }
 
+  // TODO: keep or toss?
   public static function map($that, $with) {
     return array_map($with, $that, array_keys($that));
   }
+
+  public static function render($template, $data = array()) {
+    ob_start();
+    extract((array) $data);
+    include $template;
+    return ob_get_clean();
+  }
+
 }

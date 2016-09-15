@@ -6,7 +6,7 @@ include("models/Post.php");
 class Page {
 
   static function index() {
-    if (isset($_GET["login"])) _::login();
+    if (isset($_GET["login"])) _::authenticate(true);
     return self::posts(
       Post::get(isset($_GET["from"]) ? $_GET["from"] : PHP_INT_MAX, 5)
     );

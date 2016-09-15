@@ -10,7 +10,7 @@ _::$auth = new AuthPlugin(Setting::get("users"));
 
 echo _::route($_SERVER["REQUEST_URI"], [
   "/" => "Page::index",
-  "/logout" => function() { _::logout(); },
+  "/logout" => function() { _::authenticate(false); },
   "/post/(.+)" => "Page::post",
   ".*" => "Page::notFound"
 ]);
