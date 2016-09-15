@@ -31,22 +31,33 @@ class _ {
   }
 
   public static function cast($that, $as) {
-    $result = new $as();
-    $that = (array) $that;
-    foreach ((new \ReflectionClass($result))->getProperties() as $prop) {
-      $name = $prop->getName();
-      if (isset($that[$name])) {
-        $val = $that[$name];
-        if (preg_match('/@var[\\s]+([\\S]+)/', $prop->getDocComment(), $matches)) {
-          if (class_exists($matches[1])) {
-            $val = self::cast($that[$name], $matches[1]);
-          } else {
-            settype($val, $matches[1]);
+    $result = null;
+    if (substr($as, -2, 2) == "[]") {
+      $result = is_array($that) ? _::map($that, function($o) use ($as) {
+        return _::cast($o, substr($as, 0, -2));
+      }) : [];
+    } else if (class_exists($as)) {
+      if (is_object($that) || is_array($that)) {
+        $result = new $as();
+        $that = (array) $that;
+        foreach ((new \ReflectionClass($result))->getProperties() as $prop) {
+          if (@($val = $that[$prop->getName()]) !== null) {
+            if (preg_match('/@var[\\s]+([\\S]+)/', $prop->getDocComment(), $matches)) {
+              $val = _::cast($val, $matches[1]);
+            };
+            if (isset($val)) {
+              $prop->setAccessible(true);
+              $prop->setValue($result, $val);
+            }
           }
         };
-        $prop->setValue($result, $val);
+      } else {
+        $result = new $as($that);
       }
-    };
+    } else {
+      $result = $that;
+      if (!@settype($result, $as)) $result = null;
+    }
     return $result;
   }
 
