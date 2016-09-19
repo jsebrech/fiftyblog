@@ -10,6 +10,10 @@ class Post {
   /** @var int */
   public $created = null;
 
+  public function __construct() {
+    $this->created = time();
+  }
+
   static function get($from, $count = 1) {
     return _::map(
       _::query(

@@ -1,6 +1,12 @@
+<?php use Fifty\_; ?>
 <h3 class="well">
   <a href="/post/<?= $post->created ?>"><?= $post->title ?></a>
-  <small><?= strftime("%A, %#d %B %Y %H:%M", $post->created) ?></small>
+  <small>
+    <?= strftime("%A, %#d %B %Y %H:%M", $post->created) ?>
+    <?php if (_::authenticate()) { ?>
+    <a href="/edit/<?= $post->created ?>">(edit)</a>
+    <?php } ?>
+  </small>
 </h3>
 <div>
   <?= $post->body; ?>
