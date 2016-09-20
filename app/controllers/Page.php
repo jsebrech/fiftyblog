@@ -41,15 +41,17 @@ class Page {
   }
 
   static function delete($created) {
-    Post::delete($created);
-    header("Location: /");
+    if (_::authenticate()) {
+      Post::delete($created);
+      header("Location: /");
+    } else return self::notFound();
   }
 
   static function notFound() {
     header("HTTP/1.0 404 Not Found");
     return _::render("views/page.phtml", [
-      "title" => "404",
-      "body" => "Oops, seems you backed into a corner there."
+      "title" => Setting::get("title")." - 404",
+      "body" => 'It seems you backed into a corner. Better <a href="/">go back</a>.'
     ]);
   }
 
