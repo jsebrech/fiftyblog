@@ -61,7 +61,9 @@ class _ {
     return $result;
   }
 
-  // TODO: validate method
+  public static function validate($value, $rule, $options = null) {
+    return filter_var($value, constant("FILTER_VALIDATE_".strtoupper($rule)), $options);
+  }
 
   public static function query(\PDO $pdo, $sql, $bind = []) {
     $stmt = $pdo->prepare($sql);

@@ -13,5 +13,6 @@ echo _::route($_SERVER["REQUEST_URI"], [
   "/logout" => function() { _::authenticate(false); },
   "/post/(.+)" => "Page::view",
   "/edit/(.+)" => "Page::edit",
+  "/delete/(.+)" => "Page::delete",
   ".*" => "Page::notFound"
 ]);

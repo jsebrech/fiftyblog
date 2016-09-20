@@ -1,4 +1,7 @@
 <form method="POST" action="/edit/<?= $created; ?>">
+  <?php if (isset($error)) { ?>
+    <div class="alert alert-warning"><?= htmlentities($error); ?></div>
+  <?php } ?>
   <input type="hidden" name="created" value="<?= $created; ?>">
   <label>
     Title:

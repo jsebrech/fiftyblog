@@ -16,6 +16,7 @@
       </div>
       <ul class="nav navbar-nav navbar-right">
         <?php if (_::authenticate()) { ?>
+          <li><a href="/edit/new">New Post</a></li>
           <li><a href="//logout@<?= $_SERVER["SERVER_NAME"] ?>/logout">Logout <?= htmlentities(_::authenticate()) ?></a></li>
         <?php } else { ?>
           <li><a href="/?login=1">Login</a></li>

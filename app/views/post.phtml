@@ -5,6 +5,7 @@
     <?= strftime("%A, %#d %B %Y %H:%M", $post->created) ?>
     <?php if (_::authenticate()) { ?>
     <a href="/edit/<?= $post->created ?>">(edit)</a>
+    <a class="btn btn-danger pull-right" href="/delete/<?= $post->created ?>">Delete</a>
     <?php } ?>
   </small>
 </h3>

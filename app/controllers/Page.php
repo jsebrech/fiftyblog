@@ -19,9 +19,15 @@ class Page {
   static function edit($created) {
     if (_::authenticate()) {
       if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        /** @var Post $post */
         $post = _::cast($_POST, "Post");
-        // TODO: validate and save, then show
-        return self::posteditor($post);
+        if (!$post->save($error)) {
+          return self::posteditor(
+            array_merge((array)$post, ["error" => $error]));
+        } else {
+          header("Location: /post/".$post->created);
+          return "";
+        }
       } else {
         if ($created == "new") {
           $post = new Post();
@@ -32,6 +38,11 @@ class Page {
         return isset($post) ? self::posteditor($post) : self::notFound();
       }
     } else return self::forbidden();
+  }
+
+  static function delete($created) {
+    Post::delete($created);
+    header("Location: /");
   }
 
   static function notFound() {
