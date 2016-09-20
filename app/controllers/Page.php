@@ -1,8 +1,6 @@
 <?php
 use Fifty\_;
 
-include("models/Post.php");
-
 class Page {
 
   static function index() {
@@ -44,6 +42,7 @@ class Page {
     if (_::authenticate()) {
       Post::delete($created);
       header("Location: /");
+      return "";
     } else return self::notFound();
   }
 
