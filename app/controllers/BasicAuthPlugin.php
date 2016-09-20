@@ -1,6 +1,6 @@
 <?php
 
-class AuthPlugin {
+class BasicAuthPlugin {
   private $users = [];
 
   function __construct($users) {

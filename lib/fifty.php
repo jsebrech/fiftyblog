@@ -2,8 +2,6 @@
 
 namespace Fifty;
 
-session_start();
-
 class _ {
   public static $auth = null;
 
@@ -18,6 +16,7 @@ class _ {
   }
 
   public static function authenticate($a = null) {
+    if (!session_id()) session_start();
     if ($a === false) { // logout
       $_SESSION = [];
       session_regenerate_id(true);
@@ -80,5 +79,4 @@ class _ {
     include $template;
     return ob_get_clean();
   }
-
 }

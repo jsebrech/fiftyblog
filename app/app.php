@@ -5,9 +5,9 @@ include "models/Setting.php";
 include "models/DB.php";
 include("models/Post.php");
 include "controllers/Page.php";
-include "controllers/AuthPlugin.php";
+include "controllers/BasicAuthPlugin.php";
 
-_::$auth = new AuthPlugin(Setting::get("users"));
+_::$auth = new BasicAuthPlugin(Setting::get("users"));
 
 echo _::route($_SERVER["REQUEST_URI"], [
   "/" => "Page::index",
