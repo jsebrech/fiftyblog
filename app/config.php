@@ -2,6 +2,6 @@
 
 $settings = [
   "title" => "A Blog",
-  "users" => ["js" => "pass"],
+  "users" => ["demo" => "demo"],
   "db" => "sqlite:../app.db"
 ];
