@@ -23,7 +23,7 @@ class Post {
       $error = "Created must be a timestamp number";
     } else {
       $error = "Unexpected error";
-      return _::query(DB::get(),
+      return _::query(
         "insert or replace into posts (id, title, body) values(:created, :title, :body)",
         (array) $this);
     };
@@ -31,19 +31,18 @@ class Post {
   }
 
   static function delete($created) {
-    return _::query(DB::get(), "delete from posts where id = ?", [$created]);
+    return _::query("delete from posts where id = ?", [$created]);
   }
 
   static function get($from, $count = 1) {
-    return _::map(
-      _::query(
-        DB::get(),
-        "select id as created, title, body from posts where id <= ? order by id desc limit ?",
-        [$from, $count]
-      )->fetchAll(),
+    return array_map(
       function($row) {
         return _::cast($row, "Post");
-      }
+      },
+      _::query(
+        "select id as created, title, body from posts where id <= ? order by id desc limit ?",
+        [$from, $count]
+      )->fetchAll()
     );
   }
 }

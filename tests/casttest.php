@@ -1,6 +1,6 @@
 <?php
 
-  include __DIR__."/../lib/fifty.php";
+  include __DIR__."/../vendor/autoload.php";
   use Fifty\_;
 
   assert_options(ASSERT_BAIL, true);

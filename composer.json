@@ -1,0 +1,19 @@
+{
+  "name": "jsebrech/fiftyblog",
+  "description": "A blog built with the fifty framework",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Joeri Sebrechts",
+      "email": "joeri@sebrechts.net"
+    }
+  ],
+  "repositories": [{
+    "type": "git",
+    "url": "https://github.com/jsebrech/fifty"
+  }],
+  "require": {
+      "jsebrech/fifty": "dev-master"
+  }
+}
