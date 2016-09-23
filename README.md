@@ -3,6 +3,8 @@ A nano-blog demonstrating the [Fifty](https://github.com/jsebrech/fifty) nano-fr
 
 ## Installing
 
+    composer install
+
     // Set up the initial posts database
     php scripts/createposts.php
     
