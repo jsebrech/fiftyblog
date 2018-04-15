@@ -3,7 +3,7 @@ chdir(__DIR__); include "../vendor/autoload.php";
 use Fifty\_;
 
 include "models/Setting.php";
-include("models/Post.php");
+include "models/Post.php";
 include "controllers/Page.php";
 include "controllers/BasicAuthPlugin.php";
 

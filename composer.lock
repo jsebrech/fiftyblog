@@ -1,0 +1,50 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "97a6cd2d41bf72a0c49b90810656dafd",
+    "packages": [
+        {
+            "name": "jsebrech/fifty",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jsebrech/fifty",
+                "reference": "27711aa19746ef0362623bfcc297ce22ced66d45"
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Fifty\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Joeri Sebrechts",
+                    "email": "joeri@sebrechts.net"
+                }
+            ],
+            "description": "Fifty minute nano-framework",
+            "homepage": "https://github.com/jsebrech/fifty",
+            "time": "2016-09-22T19:09:45+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "jsebrech/fifty": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
